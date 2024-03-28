@@ -62,6 +62,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// authRoutes.js
+router.post("/register", async (req, res) => {
+  try {
+    // ... registration logic
+
+  } catch (error) {
+    res.status(500).json({ message: "Registration failed" });
+  }
+});
+
 app.use((err, req, res, next)=> {
   console.log(err);
   res.status(err.status || 500).send({ error: err.message ? err.message : err });

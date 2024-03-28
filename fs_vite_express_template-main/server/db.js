@@ -54,14 +54,59 @@ const displayErrors = () => {
   ));
 };
 
-const handleLogin = async () => {
+const handleLogin = async (username, password) => {
   try {
-    // ... existing login logic
 
+    // Make a request to the server to authenticate the user
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (response.ok) {
+      // Successful login, handle the response accordingly
+      const userData = await response.json();
+      // Update state or perform actions for a successful login
+    } else {
+      // If response status is not OK, throw an error
+      throw new Error('Authentication failed');
+    }
   } catch (error) {
+    // Handle errors, such as network issues or authentication failure
     setErrors(["Invalid credentials. Please try again."]);
   }
 };
+
+
+const handleRegistration = async (username, password, email) => {
+  try {
+
+    // Make a request to the server to register the new user
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password, email }),
+    });
+
+    if (response.ok) {
+      // Successful registration, handle the response accordingly
+      const userData = await response.json();
+      // Update state or perform actions for a successful registration
+    } else {
+      // If response status is not OK, throw an error
+      throw new Error('Registration failed');
+    }
+  } catch (error) {
+    // Handle errors, such as network issues or registration failure
+    setErrors(["Registration failed. Please try again."]);
+  }
+};
+
 
 const findUserWithToken = async(token)=> {
   let id;
